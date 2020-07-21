@@ -1,6 +1,7 @@
 package ru.mikov.sbdelivery.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
+import ru.mikov.sbdelivery.R
 import ru.mikov.sbdelivery.data.repositories.RootRepository
 import ru.mikov.sbdelivery.viewmodels.base.BaseViewModel
 import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
@@ -8,8 +9,7 @@ import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
 
 class RootViewModel(handle: SavedStateHandle) : BaseViewModel<RootState>(handle, RootState()) {
     private val repository: RootRepository = RootRepository
-    private val privateRoutes = emptyList<Int>()
-//    private val privateRoutes = listOf(R.id.nav_profile)
+    private val privateRoutes = listOf(R.id.nav_profile)
 
     init {
         subscribeOnDataSource(repository.isAuth()) { isAuth, state ->
