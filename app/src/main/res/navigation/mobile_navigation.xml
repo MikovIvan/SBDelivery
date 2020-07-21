@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_splash">
+
+
+    <!--    &lt;!&ndash;    global actions&ndash;&gt;-->
+    <!--    <action-->
+    <!--        android:id="@+id/start_login"-->
+    <!--        app:destination="@id/auth" />-->
+    <!--    <action-->
+    <!--        android:id="@+id/finish_login"-->
+    <!--        app:popUpTo="@id/nav_auth"-->
+    <!--        app:popUpToInclusive="true" />-->
+
+    <!--    global actions-->
+    <action android:id="@+id/start_login" />
+    <action
+        android:id="@+id/finish_login"
+
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/nav_splash"
+        android:name="ru.mikov.sbdelivery.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_nav_splash_to_nav_main"
+            app:destination="@id/nav_main" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_main"
+        android:name="ru.mikov.sbdelivery.ui.main.MainFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="ru.mikov.sbdelivery.ui.about.AboutFragment"
+        android:label="@string/title_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="ru.mikov.sbdelivery.ui.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/nav_menu"
+        android:name="ru.mikov.sbdelivery.ui.menu.MenuFragment"
+        android:label="@string/title_menu"
+        tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/nav_notifications"
+        android:name="ru.mikov.sbdelivery.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/nav_orders"
+        android:name="ru.mikov.sbdelivery.ui.orders.OrdersFragment"
+        android:label="@string/title_orders"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="ru.mikov.sbdelivery.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
