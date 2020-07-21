@@ -1,33 +1,17 @@
 package ru.mikov.sbdelivery.ui.menu
 
-import androidx.lifecycle.ViewModelProviders
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import ru.mikov.sbdelivery.R
+import ru.mikov.sbdelivery.ui.base.BaseFragment
 import ru.mikov.sbdelivery.viewmodels.menu.MenuViewModel
 
-class MenuFragment : Fragment() {
+class MenuFragment : BaseFragment<MenuViewModel>() {
 
-    companion object {
-        fun newInstance() = MenuFragment()
-    }
+    override val viewModel: MenuViewModel by activityViewModels()
+    override val layout: Int = R.layout.fragment_menu
 
-    private lateinit var viewModel: MenuViewModel
+    override fun setupViews() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_menu, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MenuViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

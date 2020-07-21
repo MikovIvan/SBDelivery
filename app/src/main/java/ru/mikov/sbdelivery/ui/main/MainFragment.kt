@@ -1,33 +1,19 @@
 package ru.mikov.sbdelivery.ui.main
 
-import androidx.lifecycle.ViewModelProviders
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import kotlinx.android.synthetic.main.activity_root.*
 import ru.mikov.sbdelivery.R
+import ru.mikov.sbdelivery.ui.base.BaseFragment
 import ru.mikov.sbdelivery.viewmodels.main.MainViewModel
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment<MainViewModel>() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+    override val viewModel: MainViewModel by activityViewModels()
+    override val layout: Int = R.layout.fragment_main
 
-    private lateinit var viewModel: MainViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun setupViews() {
+        requireActivity().appbar.visibility = View.VISIBLE
     }
 
 }
