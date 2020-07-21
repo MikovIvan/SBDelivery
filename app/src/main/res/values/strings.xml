@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SB Delivery</string>
+    <string name="title_main">Главная</string>
+    <string name="title_menu">Меню</string>
+    <string name="title_favorites">Избранное</string>
+    <string name="title_cart">Корзина</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_orders">Заказы</string>
+    <string name="title_notifications">Уведомления</string>
+    <string name="title_about">О приложении</string>
 </resources>
