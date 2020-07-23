@@ -29,8 +29,4 @@
             android:icon="@drawable/ic_bell"
             android:title="@string/title_notifications" />
 
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_star"
-            android:title="@string/title_about" />
 </menu>

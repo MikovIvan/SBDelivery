@@ -38,8 +38,29 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/color_background"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:itemIconTint="@color/color_orange"
+        app:itemTextColor="@android:color/white"
+        app:menu="@menu/activity_main_drawer">
+
+        <!--        из-за того что нельзя разместить внизу пункт меню "о приложении"-->
+        <TextView
+            android:id="@+id/nav_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_star"
+            android:drawablePadding="16dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="@string/title_about"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

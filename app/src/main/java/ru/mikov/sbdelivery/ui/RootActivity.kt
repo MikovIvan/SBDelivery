@@ -23,18 +23,17 @@ class RootActivity : BaseActivity<RootViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         appbarConfiguration = AppBarConfiguration(
-             setOf(
-                 R.id.nav_main,
-                 R.id.nav_menu,
-                 R.id.nav_favorites,
-                 R.id.nav_cart,
-                 R.id.nav_profile,
-                 R.id.nav_orders,
-                 R.id.nav_notifications,
-                 R.id.nav_about
-             ), drawer_layout
-         )
+        appbarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_main,
+                R.id.nav_menu,
+                R.id.nav_favorites,
+                R.id.nav_cart,
+                R.id.nav_profile,
+                R.id.nav_orders,
+                R.id.nav_notifications
+            ), drawer_layout
+        )
 
         setupActionBarWithNavController(navController, appbarConfiguration)
 
@@ -42,6 +41,12 @@ class RootActivity : BaseActivity<RootViewModel>() {
             viewModel.navigate(NavigationCommand.To(it.itemId))
             drawer_layout.closeDrawers()
             true
+        }
+
+        // из-за того что нельзя разместить внизу пункт меню "о приложении"
+        nav_about.setOnClickListener {
+            viewModel.navigate(NavigationCommand.To(R.id.nav_about))
+            drawer_layout.closeDrawers()
         }
 
 //        navController.addOnDestinationChangedListener { controller, destination, arguments ->
