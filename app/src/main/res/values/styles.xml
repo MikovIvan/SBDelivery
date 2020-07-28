@@ -48,4 +48,9 @@
         <item name="android:textColorSecondary">?attr/colorOnPrimary</item>
     </style>
 
+    <style name="AddToCartButton" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorSecondary">@color/color_orange</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+    </style>
+
 </resources>
