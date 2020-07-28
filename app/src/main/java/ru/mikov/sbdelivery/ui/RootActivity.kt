@@ -23,7 +23,7 @@ class RootActivity : BaseActivity<RootViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val appbarConfiguration = AppBarConfiguration(
+        appbarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_main,
                 R.id.nav_menu,
@@ -31,20 +31,25 @@ class RootActivity : BaseActivity<RootViewModel>() {
                 R.id.nav_cart,
                 R.id.nav_profile,
                 R.id.nav_orders,
-                R.id.nav_notifications,
-                R.id.nav_about
-            )
+                R.id.nav_notifications
+            ), drawer_layout
         )
 
         setupActionBarWithNavController(navController, appbarConfiguration)
 
         nav_view.setNavigationItemSelectedListener {
-            //if click on bottom navigation item -> navigate to destination by item id
             viewModel.navigate(NavigationCommand.To(it.itemId))
+            drawer_layout.closeDrawers()
             true
         }
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        // из-за того что нельзя разместить внизу пункт меню "о приложении"
+        nav_about.setOnClickListener {
+            viewModel.navigate(NavigationCommand.To(R.id.nav_about))
+            drawer_layout.closeDrawers()
+        }
+
+//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
 //            if(destination.id == R.id.nav_auth) nav_view.selectItem(arguments?.get("private_destination")as Int?)
 //
 //            if (destination.id == R.id.nav_auth && isAuth) {
@@ -58,7 +63,7 @@ class RootActivity : BaseActivity<RootViewModel>() {
 //                if (arguments != null && arguments["private_destination"] != null)
 //                    viewModel.navigate(NavigationCommand.To(arguments["private_destination"] as Int))
 //            }
-        }
+//        }
     }
 
     override fun renderNotification(notify: Notify) {

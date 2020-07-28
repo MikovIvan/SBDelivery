@@ -11,6 +11,8 @@ import androidx.core.view.children
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.circleCropTransform
 import kotlinx.android.synthetic.main.activity_root.*
@@ -25,6 +27,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
     protected abstract val viewModel: T
     protected abstract val layout: Int
     lateinit var navController: NavController
+    lateinit var appbarConfiguration: AppBarConfiguration
 
     val toolbarBuilder = ToolbarBuilder()
 
@@ -55,7 +58,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return navController.navigateUp(appbarConfiguration) || super.onSupportNavigateUp()
     }
 
     private fun subscribeOnNavigation(command: NavigationCommand) {
