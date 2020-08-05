@@ -34,7 +34,7 @@ class MainFragment : BaseFragment<MainViewModel>() {
 
     inner class ArticlesBinding : Binding() {
         private var popularDishes: List<Dish> by RenderProp(emptyList<Dish>()) {
-            popularDishesAdapter.submitList(it)
+            popularDishesAdapter.submitList(it.shuffled())
         }
 
         override fun bind(data: IViewModelState) {
