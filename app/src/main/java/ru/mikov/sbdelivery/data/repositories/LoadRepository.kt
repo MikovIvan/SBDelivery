@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ru.mikov.sbdelivery.data.local.DbManager.db
+import ru.mikov.sbdelivery.data.local.entities.Category
 import ru.mikov.sbdelivery.data.local.entities.Dish
 import ru.mikov.sbdelivery.data.remote.NetworkService
 import ru.mikov.sbdelivery.data.remote.res.CategoryRes
@@ -66,5 +67,9 @@ object LoadRepository {
 
             result(resList)
         }
+    }
+
+    fun getCategories(): LiveData<List<Category>> {
+        return categoriesDao.getCategories()
     }
 }
