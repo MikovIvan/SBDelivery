@@ -10,6 +10,7 @@ import ru.mikov.sbdelivery.data.local.entities.Dish
 import ru.mikov.sbdelivery.data.remote.NetworkService
 import ru.mikov.sbdelivery.data.remote.res.CategoryRes
 import ru.mikov.sbdelivery.data.remote.res.DishRes
+import java.util.*
 
 object LoadRepository {
 
@@ -30,7 +31,14 @@ object LoadRepository {
             dishList.forEach {
                 dishesDao.insert(it.toDish())
             }
+            if (dishesDao.isActionDish()) categoriesDao.insert(
+                Category(
+                    "1", "Акции", 0, null, null, true, Date(),
+                    Date()
+                )
+            )
         }
+
     }
 
     fun getAllDishes(result: (dishes: List<DishRes>) -> Unit) {

@@ -37,11 +37,17 @@ class CategoriesAdapter :
         ) {
             tv_category_title.text = item.name
 
-            val requestBuilder: RequestBuilder<PictureDrawable> = Glide.with(containerView.context)
-                .`as`(PictureDrawable::class.java)
-                .listener(SvgSoftwareLayerSetter())
+            if (item.categoryId == "1") {
+                Glide.with(containerView.context).load(R.drawable.ic_action_dishes)
+                    .into(iv_category_image)
+            } else {
+                val requestBuilder: RequestBuilder<PictureDrawable> =
+                    Glide.with(containerView.context)
+                        .`as`(PictureDrawable::class.java)
+                        .listener(SvgSoftwareLayerSetter())
 
-            requestBuilder.load(item.icon).into(iv_category_image)
+                requestBuilder.load(item.icon).into(iv_category_image)
+            }
         }
     }
 
