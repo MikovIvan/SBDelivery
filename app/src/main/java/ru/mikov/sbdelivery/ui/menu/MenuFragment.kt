@@ -1,5 +1,6 @@
 package ru.mikov.sbdelivery.ui.menu
 
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_menu.*
@@ -18,7 +19,9 @@ class MenuFragment : BaseFragment<MenuViewModel>() {
     override val layout: Int = R.layout.fragment_menu
     override val binding: CategoriesBinding by lazy { CategoriesBinding() }
 
-    private val categoriesAdapter = CategoriesAdapter()
+    private val categoriesAdapter = CategoriesAdapter {
+        Toast.makeText(context, "Go to ${it.name}", Toast.LENGTH_SHORT).show()
+    }
 
     override fun setupViews() {
 

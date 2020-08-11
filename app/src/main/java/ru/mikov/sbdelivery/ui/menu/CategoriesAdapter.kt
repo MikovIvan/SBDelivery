@@ -16,8 +16,9 @@ import ru.mikov.sbdelivery.data.local.entities.Category
 import ru.mikov.sbdelivery.utils.svg.SvgSoftwareLayerSetter
 
 
-class CategoriesAdapter :
-    ListAdapter<Category, CategoriesAdapter.CategoriesHolder>(ArticleDiffCallback()) {
+class CategoriesAdapter(
+    private val listener: (Category) -> Unit
+) : ListAdapter<Category, CategoriesAdapter.CategoriesHolder>(ArticleDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesHolder {
         val containerView =
@@ -26,14 +27,15 @@ class CategoriesAdapter :
     }
 
     override fun onBindViewHolder(holder: CategoriesHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), listener)
     }
 
     class CategoriesHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView),
         LayoutContainer {
         fun bind(
-            item: Category
+            item: Category,
+            listener: (Category) -> Unit
         ) {
             tv_category_title.text = item.name
 
@@ -48,6 +50,8 @@ class CategoriesAdapter :
 
                 requestBuilder.load(item.icon).into(iv_category_image)
             }
+
+            itemView.setOnClickListener { listener(item) }
         }
     }
 
