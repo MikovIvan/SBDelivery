@@ -11,6 +11,7 @@ import ru.mikov.sbdelivery.ui.base.BaseFragment
 import ru.mikov.sbdelivery.ui.base.Binding
 import ru.mikov.sbdelivery.ui.delegates.RenderProp
 import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
+import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
 import ru.mikov.sbdelivery.viewmodels.main.MainState
 import ru.mikov.sbdelivery.viewmodels.main.MainViewModel
 
@@ -28,6 +29,10 @@ class MainFragment : BaseFragment<MainViewModel>() {
         with(rv_popular) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = popularDishesAdapter
+        }
+
+        tv_popular_all.setOnClickListener {
+            viewModel.navigate(NavigationCommand.To(R.id.nav_menu))
         }
 
     }

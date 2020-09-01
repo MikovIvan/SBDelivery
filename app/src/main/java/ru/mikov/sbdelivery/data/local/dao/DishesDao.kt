@@ -15,4 +15,12 @@ interface DishesDao : BaseDao<Dish> {
     """
     )
     fun getPopularDishes(): LiveData<List<Dish>>
+
+    @Query(
+        """
+            SELECT * FROM dishes
+            WHERE old_price IS NOT null
+        """
+    )
+    fun isActionDish(): Boolean
 }
