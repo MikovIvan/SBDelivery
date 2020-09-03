@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_splash">
+    app:startDestination="@id/auth">
 
 
     <!--    &lt;!&ndash;    global actions&ndash;&gt;-->
@@ -65,4 +65,27 @@
         android:name="ru.mikov.sbdelivery.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <navigation
+        android:id="@+id/auth"
+        android:label="@string/enter"
+        app:startDestination="@id/nav_auth">
+        <fragment
+            android:id="@+id/nav_auth"
+            android:name="ru.mikov.sbdelivery.ui.auth.AuthFragment"
+            android:label="Auth"
+            tools:layout="@layout/fragment_auth">
+            <argument
+                android:name="private_destination"
+                android:defaultValue="-1"
+                app:argType="integer" />
+            <action
+                android:id="@+id/action_nav_auth_to_page_registration"
+                app:destination="@id/page_registration" />
+        </fragment>
+        <fragment
+            android:id="@+id/page_registration"
+            android:name="ru.mikov.sbdelivery.ui.auth.RegistrationFragment"
+            android:label="Registration"
+            tools:layout="@layout/fragment_registration" />
+    </navigation>
 </navigation>
