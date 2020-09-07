@@ -1,10 +1,10 @@
 package ru.mikov.sbdelivery.data.remote
 
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
+import retrofit2.http.*
+import ru.mikov.sbdelivery.data.remote.req.RegistrationReq
 import ru.mikov.sbdelivery.data.remote.res.CategoryRes
 import ru.mikov.sbdelivery.data.remote.res.DishRes
+import ru.mikov.sbdelivery.data.remote.res.RegistrationRes
 
 
 interface RestService {
@@ -22,4 +22,7 @@ interface RestService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
     ): List<CategoryRes>
+
+    @POST("auth/register")
+    fun register(@Body registrationReq: RegistrationReq): RegistrationRes
 }
