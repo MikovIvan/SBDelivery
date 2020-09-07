@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import ru.mikov.sbdelivery.data.local.DbManager.db
 import ru.mikov.sbdelivery.data.local.entities.Category
 import ru.mikov.sbdelivery.data.local.entities.Dish
-import ru.mikov.sbdelivery.data.remote.NetworkService
+import ru.mikov.sbdelivery.data.remote.NetworkManager
 import ru.mikov.sbdelivery.data.remote.res.CategoryRes
 import ru.mikov.sbdelivery.data.remote.res.DishRes
 import java.util.*
@@ -47,7 +47,7 @@ object LoadRepository {
             var offset = 0
             val limit = 50
             do {
-                val tmpList = NetworkService.api.getAllDishes(offset, limit)
+                val tmpList = NetworkManager.api.getAllDishes(offset, limit)
                 if (tmpList.size < limit) break
                 resList.addAll(tmpList)
                 offset += limit
@@ -67,7 +67,7 @@ object LoadRepository {
             var offset = 0
             val limit = 10
             do {
-                val tmpList = NetworkService.api.getAllCategories(offset, limit)
+                val tmpList = NetworkManager.api.getAllCategories(offset, limit)
                 if (tmpList.size < limit) break
                 resList.addAll(tmpList)
                 offset += limit
