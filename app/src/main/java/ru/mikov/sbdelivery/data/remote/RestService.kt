@@ -1,10 +1,11 @@
 package ru.mikov.sbdelivery.data.remote
 
 import retrofit2.http.*
+import ru.mikov.sbdelivery.data.remote.req.LoginReq
 import ru.mikov.sbdelivery.data.remote.req.RegistrationReq
+import ru.mikov.sbdelivery.data.remote.res.AuthRes
 import ru.mikov.sbdelivery.data.remote.res.CategoryRes
 import ru.mikov.sbdelivery.data.remote.res.DishRes
-import ru.mikov.sbdelivery.data.remote.res.RegistrationRes
 
 
 interface RestService {
@@ -24,5 +25,8 @@ interface RestService {
     ): List<CategoryRes>
 
     @POST("auth/register")
-    fun register(@Body registrationReq: RegistrationReq): RegistrationRes
+    suspend fun register(@Body registrationReq: RegistrationReq): AuthRes
+
+    @POST("auth/login")
+    suspend fun login(@Body loginReq: LoginReq): AuthRes
 }

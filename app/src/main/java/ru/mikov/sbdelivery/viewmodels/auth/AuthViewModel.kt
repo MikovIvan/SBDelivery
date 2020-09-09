@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import ru.mikov.sbdelivery.data.repositories.RootRepository
 import ru.mikov.sbdelivery.viewmodels.base.BaseViewModel
 import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
+import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
 
 class AuthViewModel(handle: SavedStateHandle) : BaseViewModel<AuthState>(handle, AuthState()) {
     private val repository = RootRepository
@@ -14,12 +15,13 @@ class AuthViewModel(handle: SavedStateHandle) : BaseViewModel<AuthState>(handle,
         }
     }
 
-//    fun handleLogin(login: String, pass: String, dest: Int?) {
-//        launchSafety {
-//            repository.login(login, pass)
-//            navigate(NavigationCommand.FinishLogin(dest))
-//        }
-//    }
+    fun handleLogin(login: String, pass: String, dest: Int?) {
+        launchSafety {
+            showLoadingBlock()
+            repository.login(login, pass)
+            navigate(NavigationCommand.FinishLogin(dest))
+        }
+    }
 }
 
 data class AuthState(val isAuth: Boolean = false) : IViewModelState
