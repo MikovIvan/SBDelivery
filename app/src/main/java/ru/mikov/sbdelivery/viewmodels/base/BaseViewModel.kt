@@ -71,6 +71,10 @@ abstract class BaseViewModel<T : IViewModelState>(
         loading.value = loadingType
     }
 
+    protected fun showLoadingBlock(loadingType: Loading = Loading.SHOW_BLOCKING_LOADING) {
+        loading.value = loadingType
+    }
+
     /***
      * скрытие отображения загрузки
      */
@@ -88,6 +92,14 @@ abstract class BaseViewModel<T : IViewModelState>(
      */
     fun observeState(owner: LifecycleOwner, onChanged: (newState: T) -> Unit) {
         state.observe(owner, Observer { onChanged(it!!) })
+    }
+
+    /***
+     * более компактная форма записи observe() метода LiveData принимает последним аргумент лямбда
+     * выражение обрабатывающее изменение текущего индикатора загрузки
+     */
+    fun observeLoading(owner: LifecycleOwner, onChanged: (newState: Loading) -> Unit) {
+        loading.observe(owner, Observer { onChanged(it!!) })
     }
 
     /***
@@ -149,8 +161,8 @@ abstract class BaseViewModel<T : IViewModelState>(
                 is ApiError.InternalServerError -> notify(
                     Notify.ErrorMessage(
                         err.message,
-                        "Retry",
-                        { launchSafety(errHandler, compHandler, block) })
+                        "Retry"
+                    ) { launchSafety(errHandler, compHandler, block) }
                 )
 
                 is ApiError -> notify(Notify.ErrorMessage(err.message))

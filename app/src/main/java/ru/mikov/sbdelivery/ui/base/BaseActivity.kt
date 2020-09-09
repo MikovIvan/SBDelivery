@@ -8,6 +8,7 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -17,11 +18,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.circleCropTransform
 import kotlinx.android.synthetic.main.activity_root.*
 import ru.mikov.sbdelivery.R
+import ru.mikov.sbdelivery.extensions.blockInput
 import ru.mikov.sbdelivery.extensions.dpToIntPx
-import ru.mikov.sbdelivery.viewmodels.base.BaseViewModel
-import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
-import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
-import ru.mikov.sbdelivery.viewmodels.base.Notify
+import ru.mikov.sbdelivery.extensions.unblockInput
+import ru.mikov.sbdelivery.viewmodels.base.*
+import ru.mikov.sbdelivery.viewmodels.base.Loading.*
 
 abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatActivity() {
     protected abstract val viewModel: T
@@ -43,6 +44,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         viewModel.observeState(this) { subscribeOnState(it) }
         viewModel.observeNotifications(this) { renderNotification(it) }
         viewModel.observeNavigation(this) { subscribeOnNavigation(it) }
+        viewModel.observeLoading(this) { renderLoading(it) }
 
         navController = findNavController(R.id.nav_host_fragment)
     }
@@ -83,6 +85,20 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
                     R.id.start_login,
                     bundleOf("private_destination" to (command.privateDestination ?: -1))
                 )
+            }
+        }
+    }
+
+    open fun renderLoading(loadingState: Loading) {
+        when (loadingState) {
+            SHOW_LOADING -> progress.isVisible = true
+            SHOW_BLOCKING_LOADING -> {
+                progress.isVisible = true
+                blockInput()
+            }
+            HIDE_LOADING -> {
+                progress.isVisible = false
+                unblockInput()
             }
         }
     }
