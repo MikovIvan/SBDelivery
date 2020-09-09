@@ -6,21 +6,21 @@
     app:startDestination="@id/auth">
 
 
-    <!--    &lt;!&ndash;    global actions&ndash;&gt;-->
-    <!--    <action-->
-    <!--        android:id="@+id/start_login"-->
-    <!--        app:destination="@id/auth" />-->
-    <!--    <action-->
-    <!--        android:id="@+id/finish_login"-->
-    <!--        app:popUpTo="@id/nav_auth"-->
-    <!--        app:popUpToInclusive="true" />-->
-
     <!--    global actions-->
-    <action android:id="@+id/start_login" />
+    <action
+        android:id="@+id/start_login"
+        app:destination="@id/auth" />
     <action
         android:id="@+id/finish_login"
-
+        app:popUpTo="@id/nav_auth"
         app:popUpToInclusive="true" />
+
+    <!--    global actions-->
+    <!--    <action android:id="@+id/start_login" />-->
+    <!--    <action-->
+    <!--        android:id="@+id/finish_login"-->
+
+    <!--        app:popUpToInclusive="true" />-->
     <fragment
         android:id="@+id/nav_splash"
         android:name="ru.mikov.sbdelivery.ui.splash.SplashFragment"
@@ -86,6 +86,11 @@
             android:id="@+id/page_registration"
             android:name="ru.mikov.sbdelivery.ui.auth.RegistrationFragment"
             android:label="Registration"
-            tools:layout="@layout/fragment_registration" />
+            tools:layout="@layout/fragment_registration">
+            <argument
+                android:name="private_destination"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </fragment>
     </navigation>
 </navigation>

@@ -2,8 +2,8 @@ package ru.mikov.sbdelivery.ui.auth
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.mikov.sbdelivery.R
 import ru.mikov.sbdelivery.extensions.invisible
@@ -19,6 +19,7 @@ class RegistrationFragment : BaseFragment<RegistrationViewModel>() {
     override val viewModel: RegistrationViewModel by viewModels()
     override val layout: Int = R.layout.fragment_registration
     override val binding: RegistrationBinding by lazy { RegistrationBinding() }
+    private val args: RegistrationFragmentArgs by navArgs()
 
     override fun setupViews() {
         et_name.addTextChangedListener(textWatcher)
@@ -36,18 +37,14 @@ class RegistrationFragment : BaseFragment<RegistrationViewModel>() {
                     binding.password
                 )
             ) {
-                //            viewModel.handleRegistration(
-//                et_name.text.toString(),
-//                et_surname.text.toString(),
-//                et_login.text.toString(),
-//                et_password.text.toString()
-//            )
+                viewModel.handleRegistration(
+                    et_name.text.toString(),
+                    et_surname.text.toString(),
+                    et_login.text.toString(),
+                    et_password.text.toString(),
+                    if (args.privateDestination == -1) null else args.privateDestination
+                )
             }
-
-
-
-            Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show()
-
         }
     }
 

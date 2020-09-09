@@ -6,14 +6,28 @@ import ru.mikov.sbdelivery.extensions.hasDigits
 import ru.mikov.sbdelivery.extensions.isEmailValid
 import ru.mikov.sbdelivery.viewmodels.base.BaseViewModel
 import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
+import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
 
 class RegistrationViewModel(handle: SavedStateHandle) :
     BaseViewModel<RegistrationState>(handle, RegistrationState()) {
     private val repository = RootRepository
 
-    fun handleRegistration(name: String, surname: String, login: String, password: String) {
+    init {
+        subscribeOnDataSource(repository.isAuth()) { isAuth, state ->
+            state.copy(isAuth = isAuth)
+        }
+    }
+
+    fun handleRegistration(
+        name: String,
+        surname: String,
+        login: String,
+        password: String,
+        dest: Int?
+    ) {
         launchSafety {
             repository.register(name, surname, login, password)
+            navigate(NavigationCommand.FinishLogin(dest))
         }
     }
 
@@ -81,7 +95,8 @@ data class RegistrationState(
     val isSurnameValid: Boolean = true,
     val isLoginValid: Boolean = true,
     val isPasswordValid: Boolean = true,
-    val isRegBtnEnable: Boolean = false
+    val isRegBtnEnable: Boolean = false,
+    val isAuth: Boolean = false
 
 ) : IViewModelState {
     override fun save(outState: SavedStateHandle) {
