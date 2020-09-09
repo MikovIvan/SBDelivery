@@ -1,8 +1,8 @@
 package ru.mikov.sbdelivery.data.remote.req
 
 data class RegistrationReq(
-    val name: String,
-    val surname: String,
-    val login: String,
+    val firstName: String,
+    val lastName: String,
+    val email: String,
     val password: String
 )
