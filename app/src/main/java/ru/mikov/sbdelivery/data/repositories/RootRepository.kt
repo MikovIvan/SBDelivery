@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import ru.mikov.sbdelivery.data.local.PrefManager
 import ru.mikov.sbdelivery.data.models.User
 import ru.mikov.sbdelivery.data.remote.NetworkManager
-import ru.mikov.sbdelivery.data.remote.req.LoginReq
-import ru.mikov.sbdelivery.data.remote.req.RegistrationReq
+import ru.mikov.sbdelivery.data.remote.req.*
 
 object RootRepository {
     private val preferences = PrefManager
@@ -26,5 +25,17 @@ object RootRepository {
         preferences.profile = User(auth.id, auth.firstName, auth.lastName, auth.email)
         preferences.accessToken = "Bearer ${auth.accessToken}"
         preferences.refreshToken = auth.refreshToken
+    }
+
+    suspend fun sendRecoveryEmail(email: String) {
+        network.sendRecoveryEmail(RecoveryEmailReq(email))
+    }
+
+    suspend fun sendRecoveryCode(email: String, code: Int) {
+        network.sendRecoveryCode(RecoveryCodeReq(email, code))
+    }
+
+    suspend fun sendRecoveryPassword(email: String, code: Int, password: String) {
+        network.sendRecoveryPassword(RecoveryPasswordReq(email, code, password))
     }
 }

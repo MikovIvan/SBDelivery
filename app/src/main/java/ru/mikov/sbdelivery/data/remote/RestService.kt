@@ -1,8 +1,7 @@
 package ru.mikov.sbdelivery.data.remote
 
 import retrofit2.http.*
-import ru.mikov.sbdelivery.data.remote.req.LoginReq
-import ru.mikov.sbdelivery.data.remote.req.RegistrationReq
+import ru.mikov.sbdelivery.data.remote.req.*
 import ru.mikov.sbdelivery.data.remote.res.AuthRes
 import ru.mikov.sbdelivery.data.remote.res.CategoryRes
 import ru.mikov.sbdelivery.data.remote.res.DishRes
@@ -29,4 +28,14 @@ interface RestService {
 
     @POST("auth/login")
     suspend fun login(@Body loginReq: LoginReq): AuthRes
+
+    @POST("auth/recovery/email")
+    suspend fun sendRecoveryEmail(recoveryEmailReq: RecoveryEmailReq)
+
+    @POST("auth/recovery/code")
+    suspend fun sendRecoveryCode(recoveryCodeReq: RecoveryCodeReq)
+
+    @POST("auth/recovery/password")
+    suspend fun sendRecoveryPassword(recoveryPasswordReq: RecoveryPasswordReq)
+
 }
