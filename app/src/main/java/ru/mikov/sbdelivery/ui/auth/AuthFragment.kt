@@ -25,6 +25,10 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
                 if (args.privateDestination == -1) null else args.privateDestination
             )
         }
+
+        tv_forgot_password.setOnClickListener {
+            viewModel.navigate(NavigationCommand.To(R.id.recovery_password))
+        }
     }
 
 
