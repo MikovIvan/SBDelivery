@@ -2,6 +2,7 @@ package ru.mikov.sbdelivery.extensions
 
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 
 fun View.visible() {
@@ -25,4 +26,22 @@ fun AppCompatActivity.blockInput() {
 
 fun AppCompatActivity.unblockInput() {
     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+}
+
+fun EditText.enable() {
+    with(this) {
+        isLongClickable = true
+        isFocusable = true
+        isCursorVisible = true
+        requestFocus()
+    }
+}
+
+fun EditText.disable() {
+    with(this) {
+        isLongClickable = false
+        isFocusable = false
+        isCursorVisible = false
+        clearFocus()
+    }
 }
