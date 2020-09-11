@@ -81,6 +81,9 @@
             <action
                 android:id="@+id/action_nav_auth_to_page_registration"
                 app:destination="@id/page_registration" />
+            <action
+                android:id="@+id/action_nav_auth_to_recovery_password"
+                app:destination="@id/recovery_password" />
         </fragment>
         <fragment
             android:id="@+id/page_registration"
@@ -92,5 +95,43 @@
                 android:defaultValue="-1"
                 app:argType="integer" />
         </fragment>
+        <navigation
+            android:id="@+id/recovery_password"
+            android:label="Password recovery"
+            app:startDestination="@id/nav_recovery_password">
+            <fragment
+                android:id="@+id/nav_recovery_password"
+                android:name="ru.mikov.sbdelivery.ui.auth.recovery.RecoveryPasswordFragment"
+                android:label="Recovery password"
+                tools:layout="@layout/fragment_recovery_password">
+                <action
+                    android:id="@+id/action_nav_recovery_password_to_page_enter_code"
+                    app:destination="@id/page_enter_code" />
+            </fragment>
+            <fragment
+                android:id="@+id/page_enter_code"
+                android:name="ru.mikov.sbdelivery.ui.auth.recovery.EnterCodeFragment"
+                android:label="Recovery password"
+                tools:layout="@layout/fragment_enter_code">
+                <action
+                    android:id="@+id/action_page_enter_code_to_enterpage_new_password"
+                    app:destination="@id/page_enter_new_password" />
+                <argument
+                    android:name="email"
+                    app:argType="string" />
+            </fragment>
+            <fragment
+                android:id="@+id/page_enter_new_password"
+                android:name="ru.mikov.sbdelivery.ui.auth.recovery.EnterNewPasswordFragment"
+                android:label="Recovery password"
+                tools:layout="@layout/fragment_enter_new_password">
+                <argument
+                    android:name="email"
+                    app:argType="string" />
+                <argument
+                    android:name="code"
+                    app:argType="integer" />
+            </fragment>
+        </navigation>
     </navigation>
 </navigation>
