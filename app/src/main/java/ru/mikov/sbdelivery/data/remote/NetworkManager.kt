@@ -8,6 +8,7 @@ import ru.mikov.sbdelivery.AppConfig
 import ru.mikov.sbdelivery.data.JsonConverter.moshi
 import ru.mikov.sbdelivery.data.remote.interceptors.ErrorStatusInterceptor
 import ru.mikov.sbdelivery.data.remote.interceptors.NetworkStatusInterceptor
+import ru.mikov.sbdelivery.data.remote.interceptors.TokenAuthenticator
 import java.util.concurrent.TimeUnit
 
 object NetworkManager {
@@ -20,6 +21,7 @@ object NetworkManager {
             .connectTimeout(3, TimeUnit.SECONDS)
             .readTimeout(2, TimeUnit.SECONDS)
             .writeTimeout(5, TimeUnit.SECONDS)
+            .authenticator(TokenAuthenticator())
             .addInterceptor(NetworkStatusInterceptor())
             .addInterceptor(logging)
             .addInterceptor(ErrorStatusInterceptor())
