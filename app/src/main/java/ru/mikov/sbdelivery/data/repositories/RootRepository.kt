@@ -31,11 +31,17 @@ object RootRepository {
         network.sendRecoveryEmail(RecoveryEmailReq(email))
     }
 
-    suspend fun sendRecoveryCode(email: String, code: Int) {
-        network.sendRecoveryCode(RecoveryCodeReq(email, code))
-    }
+//    suspend fun sendRecoveryCode(email: String, code: String): Boolean {
+suspend fun sendRecoveryCode(email: String, code: String) {
+    network.sendRecoveryCode(RecoveryCodeReq(email, code))
+//        return when (network.sendRecoveryCode(RecoveryCodeReq(email, code)).code()) {
+//            200 -> true
+//            400 -> false
+//            else -> false
+//        }
+}
 
-    suspend fun sendRecoveryPassword(email: String, code: Int, password: String) {
+    suspend fun sendRecoveryPassword(email: String, code: String, password: String) {
         network.sendRecoveryPassword(RecoveryPasswordReq(email, code, password))
     }
 }
