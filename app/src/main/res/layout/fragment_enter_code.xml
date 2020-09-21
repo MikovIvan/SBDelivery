@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_background"
+    android:gravity="center"
+    tools:context=".ui.auth.recovery.EnterCodeFragment">
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Enter verification code"
+        android:textColor="@color/color_et_hint"
+        android:textSize="12sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@id/et_first_number" />
+
+    <EditText
+        android:id="@+id/et_first_number"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/et_background"
+        android:inputType="number"
+        android:maxLength="1"
+        android:gravity="center"
+        android:layout_marginEnd="8dp" />
+
+    <EditText
+        android:id="@+id/et_second_number"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@drawable/et_background"
+        android:inputType="number"
+        android:maxLength="1"
+        android:focusable="false"
+        android:longClickable="false"
+        android:cursorVisible="false"
+        android:gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/et_first_number" />
+
+    <EditText
+        android:id="@+id/et_third_number"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@drawable/et_background"
+        android:inputType="number"
+        android:maxLength="1"
+        android:focusable="false"
+        android:longClickable="false"
+        android:cursorVisible="false"
+        android:gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/et_second_number" />
+
+    <EditText
+        android:id="@+id/et_fourth_number"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/et_background"
+        android:inputType="number"
+        android:maxLength="1"
+        android:focusable="false"
+        android:longClickable="false"
+        android:cursorVisible="false"
+        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/et_third_number" />
+
+</RelativeLayout>

@@ -6,21 +6,21 @@
     app:startDestination="@id/nav_splash">
 
 
-    <!--    &lt;!&ndash;    global actions&ndash;&gt;-->
-    <!--    <action-->
-    <!--        android:id="@+id/start_login"-->
-    <!--        app:destination="@id/auth" />-->
-    <!--    <action-->
-    <!--        android:id="@+id/finish_login"-->
-    <!--        app:popUpTo="@id/nav_auth"-->
-    <!--        app:popUpToInclusive="true" />-->
-
     <!--    global actions-->
-    <action android:id="@+id/start_login" />
+    <action
+        android:id="@+id/start_login"
+        app:destination="@id/auth" />
     <action
         android:id="@+id/finish_login"
-
+        app:popUpTo="@id/nav_auth"
         app:popUpToInclusive="true" />
+
+    <!--    global actions-->
+    <!--    <action android:id="@+id/start_login" />-->
+    <!--    <action-->
+    <!--        android:id="@+id/finish_login"-->
+
+    <!--        app:popUpToInclusive="true" />-->
     <fragment
         android:id="@+id/nav_splash"
         android:name="ru.mikov.sbdelivery.ui.splash.SplashFragment"
@@ -65,4 +65,73 @@
         android:name="ru.mikov.sbdelivery.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <navigation
+        android:id="@+id/auth"
+        android:label="@string/enter"
+        app:startDestination="@id/nav_auth">
+        <fragment
+            android:id="@+id/nav_auth"
+            android:name="ru.mikov.sbdelivery.ui.auth.AuthFragment"
+            android:label="Auth"
+            tools:layout="@layout/fragment_auth">
+            <argument
+                android:name="private_destination"
+                android:defaultValue="-1"
+                app:argType="integer" />
+            <action
+                android:id="@+id/action_nav_auth_to_page_registration"
+                app:destination="@id/page_registration" />
+            <action
+                android:id="@+id/action_nav_auth_to_recovery_password"
+                app:destination="@id/recovery_password" />
+        </fragment>
+        <fragment
+            android:id="@+id/page_registration"
+            android:name="ru.mikov.sbdelivery.ui.auth.RegistrationFragment"
+            android:label="Registration"
+            tools:layout="@layout/fragment_registration">
+            <argument
+                android:name="private_destination"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </fragment>
+        <navigation
+            android:id="@+id/recovery_password"
+            android:label="Password recovery"
+            app:startDestination="@id/nav_recovery_password">
+            <fragment
+                android:id="@+id/nav_recovery_password"
+                android:name="ru.mikov.sbdelivery.ui.auth.recovery.RecoveryPasswordFragment"
+                android:label="Recovery password"
+                tools:layout="@layout/fragment_recovery_password">
+                <action
+                    android:id="@+id/action_nav_recovery_password_to_page_enter_code"
+                    app:destination="@id/page_enter_code" />
+            </fragment>
+            <fragment
+                android:id="@+id/page_enter_code"
+                android:name="ru.mikov.sbdelivery.ui.auth.recovery.EnterCodeFragment"
+                android:label="Recovery password"
+                tools:layout="@layout/fragment_enter_code">
+                <action
+                    android:id="@+id/action_page_enter_code_to_enterpage_new_password"
+                    app:destination="@id/page_enter_new_password" />
+                <argument
+                    android:name="email"
+                    app:argType="string" />
+            </fragment>
+            <fragment
+                android:id="@+id/page_enter_new_password"
+                android:name="ru.mikov.sbdelivery.ui.auth.recovery.EnterNewPasswordFragment"
+                android:label="Recovery password"
+                tools:layout="@layout/fragment_enter_new_password">
+                <argument
+                    android:name="email"
+                    app:argType="string" />
+                <argument
+                    android:name="code"
+                    app:argType="integer" />
+            </fragment>
+        </navigation>
+    </navigation>
 </navigation>

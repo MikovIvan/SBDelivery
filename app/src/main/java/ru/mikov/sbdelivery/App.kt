@@ -2,7 +2,9 @@ package ru.mikov.sbdelivery
 
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import com.facebook.stetho.Stetho
+import ru.mikov.sbdelivery.data.remote.NetworkMonitor
 
 class App : Application() {
 
@@ -21,7 +23,10 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //TODO set default Night Mode
+        //start network monitoring
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NetworkMonitor.registerNetworkMonitor(applicationContext())
+        }
 
         Stetho.initializeWithDefaults(this)
     }
