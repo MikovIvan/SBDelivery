@@ -63,6 +63,14 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         return navController.navigateUp(appbarConfiguration) || super.onSupportNavigateUp()
     }
 
+    override fun onBackPressed() {
+        if (navController.currentDestination != null && navController.currentDestination!!.id == R.id.nav_main) {
+            finish()
+            return
+        }
+        super.onBackPressed()
+    }
+
     private fun subscribeOnNavigation(command: NavigationCommand) {
         when (command) {
             is NavigationCommand.To -> {
