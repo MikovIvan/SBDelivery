@@ -10,6 +10,7 @@ import ru.mikov.sbdelivery.ui.base.BaseFragment
 import ru.mikov.sbdelivery.ui.base.Binding
 import ru.mikov.sbdelivery.ui.delegates.RenderProp
 import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
+import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
 import ru.mikov.sbdelivery.viewmodels.menu.MenuState
 import ru.mikov.sbdelivery.viewmodels.menu.MenuViewModel
 
@@ -21,6 +22,20 @@ class MenuFragment : BaseFragment<MenuViewModel>() {
 
     private val categoriesAdapter = CategoriesAdapter {
         Toast.makeText(context, "Go to ${it.name}", Toast.LENGTH_SHORT).show()
+        if (it.isParent) {
+            val action = MenuFragmentDirections.actionNavMenuToPageDishesCategory(
+                it.categoryId,
+                it.name
+            )
+            viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))
+        } else {
+            val action = MenuFragmentDirections.actionNavMenuToPageDish(
+                it.categoryId,
+                it.name
+            )
+            viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))
+        }
+
     }
 
     override fun setupViews() {
