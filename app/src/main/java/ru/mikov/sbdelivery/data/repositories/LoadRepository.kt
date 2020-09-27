@@ -26,6 +26,11 @@ object LoadRepository {
             categoryList.forEach {
                 categoriesDao.insert(it.toCategory())
             }
+            categoryList.forEach {
+                if (categoriesDao.getDishesSubcategory(it.categoryId).isNotEmpty()) {
+                    categoriesDao.update(it.toCategory().copy(isParent = true))
+                }
+            }
         }
         getAllDishes { dishList ->
             dishList.forEach {
@@ -34,7 +39,7 @@ object LoadRepository {
             if (dishesDao.isActionDish()) categoriesDao.insert(
                 Category(
                     "1", "Акции", 0, null, null, true, Date(),
-                    Date()
+                    Date(), false
                 )
             )
         }
