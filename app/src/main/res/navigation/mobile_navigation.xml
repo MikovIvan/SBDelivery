@@ -51,7 +51,14 @@
         android:id="@+id/nav_menu"
         android:name="ru.mikov.sbdelivery.ui.menu.MenuFragment"
         android:label="@string/title_menu"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_nav_menu_to_page_dishes_category"
+            app:destination="@id/page_dishes_category" />
+        <action
+            android:id="@+id/action_nav_menu_to_page_dish"
+            app:destination="@id/page_dish" />
+    </fragment>
     <fragment
         android:id="@+id/nav_notifications"
         android:name="ru.mikov.sbdelivery.ui.notifications.NotificationsFragment"
@@ -136,4 +143,26 @@
             </fragment>
         </navigation>
     </navigation>
+    <fragment
+        android:id="@+id/page_dishes_category"
+        android:name="ru.mikov.sbdelivery.ui.dishes.DishesCategoryFragment"
+        tools:layout="@layout/fragment_dishes_category">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/page_dish"
+        android:name="ru.mikov.sbdelivery.ui.dishes.dish.DishFragment"
+        android:label="DishFragment">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
 </navigation>
