@@ -40,7 +40,7 @@ class DishFragment : BaseFragment<DishViewModel>() {
     }
 
     companion object {
-        private const val CATEGORY_ID = "categoryId"
+        private const val CATEGORY_ID = "CATEGORY_ID"
 
         @JvmStatic
         fun newInstance(categoryId: String): DishFragment {

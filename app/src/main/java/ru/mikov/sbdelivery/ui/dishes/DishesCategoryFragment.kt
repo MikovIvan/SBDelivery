@@ -30,7 +30,6 @@ class DishesCategoryFragment : BaseFragment<DishesCategoryViewModel>() {
 
     override fun setupViews() {
         toolbar.title = args.name
-
     }
 
     inner class DishesCategoryBinding : Binding() {

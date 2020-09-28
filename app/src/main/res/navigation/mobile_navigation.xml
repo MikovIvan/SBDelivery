@@ -156,8 +156,7 @@
     </fragment>
     <fragment
         android:id="@+id/page_dish"
-        android:name="ru.mikov.sbdelivery.ui.dishes.dish.DishFragment"
-        android:label="DishFragment">
+        android:name="ru.mikov.sbdelivery.ui.dishes.dish.DishFragment">
         <argument
             android:name="categoryId"
             app:argType="string" />
