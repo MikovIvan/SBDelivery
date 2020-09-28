@@ -35,6 +35,14 @@ interface DishesDao : BaseDao<Dish> {
 
     @Query(
         """
+            SELECT * FROM dishes
+            WHERE old_price IS NOT null
+        """
+    )
+    fun getAllPromoDishes(): LiveData<List<Dish>>
+
+    @Query(
+        """
             SELECT * FROM category
             WHERE parent = :categoryId
         """

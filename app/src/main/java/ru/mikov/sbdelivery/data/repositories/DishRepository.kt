@@ -9,7 +9,10 @@ object DishRepository {
     private var dishesDao = DbManager.db.dishesDao()
 
     fun getDishesByCategory(categoryId: String): LiveData<List<Dish>> {
-        return dishesDao.getDishesByCategory(categoryId)
+        return when (categoryId) {
+            "1" -> dishesDao.getAllPromoDishes()
+            else -> dishesDao.getDishesByCategory(categoryId)
+        }
     }
 
     fun getDishesSubcategory(categoryId: String): LiveData<List<Category>> {
