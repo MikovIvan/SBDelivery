@@ -1,5 +1,6 @@
 package ru.mikov.sbdelivery.ui.dishes.dish
 
+import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_dish.*
 import ru.mikov.sbdelivery.R
 import ru.mikov.sbdelivery.data.local.entities.Dish
+import ru.mikov.sbdelivery.ui.base.BaseActivity.MenuItemHolder
+import ru.mikov.sbdelivery.ui.base.BaseActivity.ToolbarBuilder
 import ru.mikov.sbdelivery.ui.base.BaseFragment
 import ru.mikov.sbdelivery.ui.base.Binding
 import ru.mikov.sbdelivery.ui.delegates.RenderProp
@@ -29,6 +32,24 @@ class DishFragment : BaseFragment<DishViewModel>() {
     override val binding: DishesBinding by lazy { DishesBinding() }
 
     private val dishesAdapter = DishesAdapter()
+
+    override val prepareToolbar: (ToolbarBuilder.() -> Unit) = {
+        addMenuItem(
+            MenuItemHolder(
+                "Filter",
+                R.id.action_sort,
+                R.drawable.ic_baseline_sort_24,
+                null
+            ) {
+                //TODO nav to dialog
+            }
+        )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun setupViews() {
         if (arguments?.getString(CATEGORY_ID).isNullOrEmpty()) toolbar.title = args.name
