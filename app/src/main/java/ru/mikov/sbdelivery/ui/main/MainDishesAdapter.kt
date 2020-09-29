@@ -12,20 +12,20 @@ import kotlinx.android.synthetic.main.item_dish.*
 import ru.mikov.sbdelivery.R
 import ru.mikov.sbdelivery.data.local.entities.Dish
 
-class DishesAdapter :
-    ListAdapter<Dish, DishesAdapter.DishesHolder>(ArticleDiffCallback()) {
+class MainDishesAdapter :
+    ListAdapter<Dish, MainDishesAdapter.MainDishesHolder>(ArticleDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishesHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainDishesHolder {
         val containerView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_dish, parent, false)
-        return DishesHolder(containerView)
+        return MainDishesHolder(containerView)
     }
 
-    override fun onBindViewHolder(holder: DishesHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainDishesHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class DishesHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
+    class MainDishesHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
         fun bind(
             item: Dish
