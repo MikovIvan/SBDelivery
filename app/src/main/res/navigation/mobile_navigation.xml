@@ -163,5 +163,16 @@
         <argument
             android:name="name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_page_dish_to_sortCategoryDialog"
+            app:destination="@id/dialog_sort_category" />
     </fragment>
+    <dialog
+        android:id="@+id/dialog_sort_category"
+        android:name="ru.mikov.sbdelivery.ui.dialogs.SortCategoryDialog"
+        android:label="SortCategoryDialog">
+        <argument
+            android:name="selectedSort"
+            app:argType="integer" />
+    </dialog>
 </navigation>

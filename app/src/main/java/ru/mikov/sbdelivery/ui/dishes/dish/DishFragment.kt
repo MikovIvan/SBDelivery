@@ -2,6 +2,7 @@ package ru.mikov.sbdelivery.ui.dishes.dish
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,8 +14,10 @@ import ru.mikov.sbdelivery.ui.base.BaseActivity.ToolbarBuilder
 import ru.mikov.sbdelivery.ui.base.BaseFragment
 import ru.mikov.sbdelivery.ui.base.Binding
 import ru.mikov.sbdelivery.ui.delegates.RenderProp
+import ru.mikov.sbdelivery.ui.dialogs.SortCategoryDialog
 import ru.mikov.sbdelivery.ui.main.DishesAdapter
 import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
+import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
 import ru.mikov.sbdelivery.viewmodels.base.ViewModelFactory
 import ru.mikov.sbdelivery.viewmodels.dishes.dish.DishState
 import ru.mikov.sbdelivery.viewmodels.dishes.dish.DishViewModel
@@ -41,13 +44,22 @@ class DishFragment : BaseFragment<DishViewModel>() {
                 R.drawable.ic_baseline_sort_24,
                 null
             ) {
-                //TODO nav to dialog
+                val action = DishFragmentDirections.actionPageDishToSortCategoryDialog(
+                    binding.selectedSort
+                )
+                viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))
             }
         )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(SortCategoryDialog.SELECTED_SORT) { _, bundle ->
+            @Suppress("UNCHECKED_CAST")
+            viewModel.applySort(bundle[SortCategoryDialog.SELECTED_SORT] as Int)
+        }
+
         setHasOptionsMenu(true)
     }
 
@@ -72,6 +84,7 @@ class DishFragment : BaseFragment<DishViewModel>() {
     }
 
     inner class DishesBinding : Binding() {
+        var selectedSort: Int = -1
         private var dishes: List<Dish> by RenderProp(emptyList<Dish>()) {
             dishesAdapter.submitList(it)
         }
@@ -79,6 +92,7 @@ class DishFragment : BaseFragment<DishViewModel>() {
         override fun bind(data: IViewModelState) {
             data as DishState
             dishes = data.dishes
+            selectedSort = data.selectedSort
         }
     }
 }

@@ -18,8 +18,13 @@ class DishViewModel(
         }
     }
 
+    fun applySort(sort: Int) {
+        updateState { it.copy(selectedSort = sort) }
+    }
+
 }
 
 data class DishState(
-    val dishes: List<Dish> = emptyList()
+    val dishes: List<Dish> = emptyList(),
+    val selectedSort: Int = -1
 ) : IViewModelState
