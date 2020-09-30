@@ -1,8 +1,11 @@
 package ru.mikov.sbdelivery.data.local.dao
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.sqlite.db.SimpleSQLiteQuery
 import ru.mikov.sbdelivery.data.local.entities.Category
 import ru.mikov.sbdelivery.data.local.entities.Dish
 
@@ -31,7 +34,7 @@ interface DishesDao : BaseDao<Dish> {
             WHERE category = :categoryId
         """
     )
-    fun getDishesByCategory(categoryId: String): LiveData<List<Dish>>
+    fun getDishesByCategory(categoryId: String): DataSource.Factory<Int, Dish>
 
     @Query(
         """
@@ -39,7 +42,7 @@ interface DishesDao : BaseDao<Dish> {
             WHERE old_price IS NOT null
         """
     )
-    fun getAllPromoDishes(): LiveData<List<Dish>>
+    fun getAllPromoDishes(): DataSource.Factory<Int, Dish>
 
     @Query(
         """
@@ -48,4 +51,7 @@ interface DishesDao : BaseDao<Dish> {
         """
     )
     fun getDishesSubcategory(categoryId: String): LiveData<List<Category>>
+
+    @RawQuery(observedEntities = [Dish::class])
+    fun findDishesByRaw(simpleSQLiteQuery: SimpleSQLiteQuery): DataSource.Factory<Int, Dish>
 }
