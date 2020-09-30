@@ -57,7 +57,7 @@
             app:destination="@id/page_dishes_category" />
         <action
             android:id="@+id/action_nav_menu_to_page_dish"
-            app:destination="@id/page_dish" />
+            app:destination="@id/page_dishes" />
     </fragment>
     <fragment
         android:id="@+id/nav_notifications"
@@ -153,10 +153,13 @@
         <argument
             android:name="name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_page_dishes_category_to_dialog_sort_category"
+            app:destination="@id/dialog_sort_category" />
     </fragment>
     <fragment
-        android:id="@+id/page_dish"
-        android:name="ru.mikov.sbdelivery.ui.dishes.dish.DishFragment">
+        android:id="@+id/page_dishes"
+        android:name="ru.mikov.sbdelivery.ui.dishes.dish.DishesFragment">
         <argument
             android:name="categoryId"
             app:argType="string" />
@@ -166,6 +169,10 @@
         <action
             android:id="@+id/action_page_dish_to_sortCategoryDialog"
             app:destination="@id/dialog_sort_category" />
+        <argument
+            android:name="isLike"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <dialog
         android:id="@+id/dialog_sort_category"
@@ -173,6 +180,6 @@
         android:label="SortCategoryDialog">
         <argument
             android:name="selectedSort"
-            app:argType="integer" />
+            app:argType="string" />
     </dialog>
 </navigation>
