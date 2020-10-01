@@ -1,31 +1,33 @@
-package ru.mikov.sbdelivery.ui.dishes.dish
+package ru.mikov.sbdelivery.ui.dishes
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_dish.*
 import ru.mikov.sbdelivery.R
-import ru.mikov.sbdelivery.data.local.entities.Dish
 import ru.mikov.sbdelivery.ui.base.BaseActivity.MenuItemHolder
 import ru.mikov.sbdelivery.ui.base.BaseActivity.ToolbarBuilder
 import ru.mikov.sbdelivery.ui.base.BaseFragment
 import ru.mikov.sbdelivery.ui.base.Binding
-import ru.mikov.sbdelivery.ui.delegates.RenderProp
 import ru.mikov.sbdelivery.ui.dialogs.SortCategoryDialog
-import ru.mikov.sbdelivery.ui.main.DishesAdapter
+import ru.mikov.sbdelivery.ui.dishes.dish.DishesFragmentArgs
+import ru.mikov.sbdelivery.ui.dishes.dish.DishesFragmentDirections
+import ru.mikov.sbdelivery.viewmodels.SharedViewModel
 import ru.mikov.sbdelivery.viewmodels.base.IViewModelState
 import ru.mikov.sbdelivery.viewmodels.base.NavigationCommand
 import ru.mikov.sbdelivery.viewmodels.base.ViewModelFactory
-import ru.mikov.sbdelivery.viewmodels.dishes.dish.DishState
-import ru.mikov.sbdelivery.viewmodels.dishes.dish.DishViewModel
+import ru.mikov.sbdelivery.viewmodels.dishes.DishesState
+import ru.mikov.sbdelivery.viewmodels.dishes.DishesViewModel
 
-class DishFragment : BaseFragment<DishViewModel>() {
-    private val args: DishFragmentArgs by navArgs()
+class DishesFragment : BaseFragment<DishesViewModel>() {
+    private val args: DishesFragmentArgs by navArgs()
 
-    override val viewModel: DishViewModel by viewModels {
+    override val viewModel: DishesViewModel by viewModels {
         ViewModelFactory(
             owner = this,
             params = arguments?.getString(CATEGORY_ID) ?: args.categoryId
@@ -34,7 +36,14 @@ class DishFragment : BaseFragment<DishViewModel>() {
     override val layout: Int = R.layout.fragment_dish
     override val binding: DishesBinding by lazy { DishesBinding() }
 
-    private val dishesAdapter = DishesAdapter()
+    private val sharedModel: SharedViewModel by activityViewModels()
+    private val dishesAdapter = DishesAdapter { item, isToggleLike ->
+        if (isToggleLike) {
+            //todo handleToggleLike
+        } else {
+            //todo add navigation to dishscreen
+        }
+    }
 
     override val prepareToolbar: (ToolbarBuilder.() -> Unit) = {
         addMenuItem(
@@ -44,9 +53,10 @@ class DishFragment : BaseFragment<DishViewModel>() {
                 R.drawable.ic_baseline_sort_24,
                 null
             ) {
-                val action = DishFragmentDirections.actionPageDishToSortCategoryDialog(
-                    binding.selectedSort
-                )
+                val action =
+                    DishesFragmentDirections.actionPageDishToSortCategoryDialog(
+                        binding.selectedSort
+                    )
                 viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))
             }
         )
@@ -55,12 +65,13 @@ class DishFragment : BaseFragment<DishViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setFragmentResultListener(SortCategoryDialog.SELECTED_SORT) { _, bundle ->
+        setFragmentResultListener(SortCategoryDialog.CHOOSE_SELECTED_SORT) { _, bundle ->
             @Suppress("UNCHECKED_CAST")
-            viewModel.applySort(bundle[SortCategoryDialog.SELECTED_SORT] as Int)
+            viewModel.applySort(bundle[SortCategoryDialog.SELECTED_SORT] as String)
+            sharedModel.select(bundle[SortCategoryDialog.SELECTED_SORT] as String)
         }
 
-        setHasOptionsMenu(true)
+        if (arguments?.getString(CATEGORY_ID).isNullOrEmpty()) setHasOptionsMenu(true)
     }
 
     override fun setupViews() {
@@ -70,28 +81,32 @@ class DishFragment : BaseFragment<DishViewModel>() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = dishesAdapter
         }
+
+        viewModel.observeList(viewLifecycleOwner, arguments?.getBoolean("isLike") ?: false) {
+            dishesAdapter.submitList(it)
+        }
+
+        sharedModel.selectedSort.observe(viewLifecycleOwner, Observer {
+            viewModel.applySort(it)
+        })
     }
 
     companion object {
         private const val CATEGORY_ID = "CATEGORY_ID"
 
         @JvmStatic
-        fun newInstance(categoryId: String): DishFragment {
-            return DishFragment().apply {
+        fun newInstance(categoryId: String): DishesFragment {
+            return DishesFragment().apply {
                 arguments = bundleOf(CATEGORY_ID to categoryId)
             }
         }
     }
 
     inner class DishesBinding : Binding() {
-        var selectedSort: Int = -1
-        private var dishes: List<Dish> by RenderProp(emptyList<Dish>()) {
-            dishesAdapter.submitList(it)
-        }
+        var selectedSort: String = ""
 
         override fun bind(data: IViewModelState) {
-            data as DishState
-            dishes = data.dishes
+            data as DishesState
             selectedSort = data.selectedSort
         }
     }

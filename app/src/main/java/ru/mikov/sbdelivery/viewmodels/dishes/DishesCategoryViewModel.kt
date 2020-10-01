@@ -19,8 +19,13 @@ class DishesCategoryViewModel(
             )
         }
     }
+
+    fun applySort(sort: String) {
+        updateState { it.copy(selectedSort = sort) }
+    }
 }
 
 data class DishesCategoryState(
-    val dishes: List<Category> = emptyList()
+    val dishes: List<Category> = emptyList(),
+    val selectedSort: String = ""
 ) : IViewModelState
