@@ -22,7 +22,7 @@ class MainFragment : BaseFragment<MainViewModel>() {
     override val binding: ArticlesBinding by lazy { ArticlesBinding() }
 
 
-    private val popularDishesAdapter = DishesAdapter()
+    private val popularDishesAdapter = MainDishesAdapter()
     override fun setupViews() {
         requireActivity().appbar.visibility = View.VISIBLE
 

@@ -19,4 +19,12 @@ interface CategoriesDao : BaseDao<Category> {
     """
     )
     fun getCategories(): LiveData<List<Category>>
+
+    @Query(
+        """
+            SELECT * FROM category
+            WHERE parent = :categoryId
+        """
+    )
+    fun getDishesSubcategory(categoryId: String): List<Category>
 }

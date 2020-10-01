@@ -9,4 +9,6 @@
     <string name="title_notifications">Уведомления</string>
     <string name="title_about">О приложении</string>
     <string name="enter">Enter</string>
+    <string name="menu_sort_title">Sort</string>
+    <string name="sort">Sort</string>
 </resources>

@@ -25,7 +25,8 @@ data class CategoryRes(
                 parent,
                 active,
                 Date(createdAt),
-                Date(updatedAt)
+                Date(updatedAt),
+                false
             )
         }
     }

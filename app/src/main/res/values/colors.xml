@@ -15,8 +15,10 @@
     <color name="color_et_hint">#B3BFCF</color>
     <color name="color_stroke">#33FFFFFF</color>
     <color name="color_error">#EF3131</color>
+    <color name="color_gray_nav_header">#A6A6B2</color>
 
     <color name="color_orange">#FF6F14</color>
+    <color name="color_orange_dark">#E36517</color>
     <color name="color_background">#24222C</color>
     <color name="color_main_background">#1A1A21</color>
 </resources>

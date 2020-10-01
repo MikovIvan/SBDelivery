@@ -6,7 +6,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_root.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 import ru.mikov.sbdelivery.R
+import ru.mikov.sbdelivery.extensions.invisible
+import ru.mikov.sbdelivery.extensions.visible
 import ru.mikov.sbdelivery.ui.base.BaseActivity
 import ru.mikov.sbdelivery.viewmodels.RootState
 import ru.mikov.sbdelivery.viewmodels.RootViewModel
@@ -19,6 +22,8 @@ class RootActivity : BaseActivity<RootViewModel>() {
     override val layout: Int = R.layout.activity_root
     public override val viewModel: RootViewModel by viewModels()
     private var isAuth = false
+    private var name = ""
+    private var email = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +54,10 @@ class RootActivity : BaseActivity<RootViewModel>() {
             drawer_layout.closeDrawers()
         }
 
+        nav_view.getHeaderView(0).iv_logout.setOnClickListener {
+            viewModel.logout()
+        }
+
 //        navController.addOnDestinationChangedListener { controller, destination, arguments ->
 //            if(destination.id == R.id.nav_auth) nav_view.selectItem(arguments?.get("private_destination")as Int?)
 //
@@ -68,11 +77,6 @@ class RootActivity : BaseActivity<RootViewModel>() {
 
     override fun renderNotification(notify: Notify) {
         val snackbar = Snackbar.make(drawer_layout, notify.message, Snackbar.LENGTH_LONG)
-//        val snackbar = Snackbar.make(container, notify.message, Snackbar.LENGTH_LONG)
-//        snackbar.anchorView = findViewById<Bottombar>(R.id.bottombar) ?: nav_view
-//
-//        if (bottombar != null) snackbar.anchorView = bottombar
-//        else snackbar.anchorView = nav_view
 
         when (notify) {
             is Notify.TextMessage -> {
@@ -104,5 +108,26 @@ class RootActivity : BaseActivity<RootViewModel>() {
     override fun subscribeOnState(state: IViewModelState) {
         //do smth with state
         isAuth = (state as RootState).isAuth
+        name = state.name
+        email = state.email
+
+        handleNavHeader(isAuth, name, email)
+
+    }
+
+    private fun handleNavHeader(isAuth: Boolean, name: String, email: String) {
+        with(nav_view.getHeaderView(0)) {
+            if (isAuth) {
+                iv_logout.visible()
+                tv_nav_header_email.visible()
+                tv_nav_header_name.visible()
+            } else {
+                iv_logout.invisible()
+                tv_nav_header_email.invisible()
+                tv_nav_header_name.invisible()
+            }
+            tv_nav_header_name.text = name
+            tv_nav_header_email.text = email
+        }
     }
 }

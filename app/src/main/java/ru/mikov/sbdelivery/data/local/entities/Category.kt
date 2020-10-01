@@ -18,5 +18,7 @@ data class Category(
     @ColumnInfo(name = "created_at")
     val createdAt: Date,
     @ColumnInfo(name = "updated_at")
-    val updatedAt: Date
+    val updatedAt: Date,
+    @ColumnInfo(name = "is_parent")
+    val isParent: Boolean
 )

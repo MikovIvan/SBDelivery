@@ -14,6 +14,14 @@ class RootViewModel(handle: SavedStateHandle) : BaseViewModel<RootState>(handle,
     init {
         subscribeOnDataSource(repository.isAuth()) { isAuth, state ->
             state.copy(isAuth = isAuth)
+        }
+
+        subscribeOnDataSource(repository.getProfile()) { profile, state ->
+            profile ?: return@subscribeOnDataSource null
+            state.copy(
+                name = profile.firstName,
+                email = profile.email
+            )
 
         }
     }
@@ -31,8 +39,14 @@ class RootViewModel(handle: SavedStateHandle) : BaseViewModel<RootState>(handle,
             else -> super.navigate(command)
         }
     }
+
+    fun logout() {
+        repository.logout()
+    }
 }
 
 data class RootState(
-    val isAuth: Boolean = false
+    val isAuth: Boolean = false,
+    val name: String = "",
+    val email: String = ""
 ) : IViewModelState

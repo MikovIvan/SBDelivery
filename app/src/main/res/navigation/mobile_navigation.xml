@@ -28,7 +28,9 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_nav_splash_to_nav_main"
-            app:destination="@id/nav_main" />
+            app:destination="@id/nav_main"
+            app:popUpTo="@id/nav_main"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/nav_main"
@@ -49,7 +51,14 @@
         android:id="@+id/nav_menu"
         android:name="ru.mikov.sbdelivery.ui.menu.MenuFragment"
         android:label="@string/title_menu"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_nav_menu_to_page_dishes_category"
+            app:destination="@id/page_dishes_category" />
+        <action
+            android:id="@+id/action_nav_menu_to_page_dish"
+            app:destination="@id/page_dishes" />
+    </fragment>
     <fragment
         android:id="@+id/nav_notifications"
         android:name="ru.mikov.sbdelivery.ui.notifications.NotificationsFragment"
@@ -134,4 +143,43 @@
             </fragment>
         </navigation>
     </navigation>
+    <fragment
+        android:id="@+id/page_dishes_category"
+        android:name="ru.mikov.sbdelivery.ui.dishes.DishesCategoryFragment"
+        tools:layout="@layout/fragment_dishes_category">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_page_dishes_category_to_dialog_sort_category"
+            app:destination="@id/dialog_sort_category" />
+    </fragment>
+    <fragment
+        android:id="@+id/page_dishes"
+        android:name="ru.mikov.sbdelivery.ui.dishes.DishesFragment">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_page_dish_to_sortCategoryDialog"
+            app:destination="@id/dialog_sort_category" />
+        <argument
+            android:name="isLike"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+    <dialog
+        android:id="@+id/dialog_sort_category"
+        android:name="ru.mikov.sbdelivery.ui.dialogs.SortCategoryDialog"
+        android:label="SortCategoryDialog">
+        <argument
+            android:name="selectedSort"
+            app:argType="string" />
+    </dialog>
 </navigation>

@@ -11,7 +11,7 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.bumptech.glide.Glide
@@ -46,7 +46,9 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         viewModel.observeNavigation(this) { subscribeOnNavigation(it) }
         viewModel.observeLoading(this) { renderLoading(it) }
 
-        navController = findNavController(R.id.nav_host_fragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -61,6 +63,14 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appbarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (navController.currentDestination != null && navController.currentDestination!!.id == R.id.nav_main) {
+            finish()
+            return
+        }
+        super.onBackPressed()
     }
 
     private fun subscribeOnNavigation(command: NavigationCommand) {
