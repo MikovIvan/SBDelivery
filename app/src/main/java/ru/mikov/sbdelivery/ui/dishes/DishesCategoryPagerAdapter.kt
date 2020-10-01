@@ -1,17 +1,16 @@
 package ru.mikov.sbdelivery.ui.dishes
 
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import ru.mikov.sbdelivery.data.local.entities.Category
-import ru.mikov.sbdelivery.ui.dishes.dish.DishFragment
 
 class DishesCategoryPagerAdapter(
-    fragmentManager: FragmentManager,
+    fa: FragmentActivity,
     private val dishes: List<Category>
-) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+) : FragmentStateAdapter(fa) {
 
-    override fun getItem(position: Int) = DishFragment.newInstance(dishes[position].categoryId)
-    override fun getPageTitle(position: Int) = dishes[position].name
-    override fun getCount() = dishes.size
+    override fun createFragment(position: Int): Fragment = DishesFragment.newInstance(dishes[position].categoryId)
 
+    override fun getItemCount(): Int = dishes.size
 }
