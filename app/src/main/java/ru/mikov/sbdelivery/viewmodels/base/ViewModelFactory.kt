@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import ru.mikov.sbdelivery.viewmodels.dishes.DishesCategoryViewModel
-import ru.mikov.sbdelivery.viewmodels.dishes.dish.DishViewModel
+import ru.mikov.sbdelivery.viewmodels.dishes.DishesViewModel
 
 
 class ViewModelFactory(
@@ -21,8 +21,8 @@ class ViewModelFactory(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        if (modelClass.isAssignableFrom(DishViewModel::class.java)) {
-            return DishViewModel(
+        if (modelClass.isAssignableFrom(DishesViewModel::class.java)) {
+            return DishesViewModel(
                 handle,
                 params as String
             ) as T
